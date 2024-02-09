@@ -2,11 +2,18 @@
 
 {% block title %} Contact {% endblock title %}
 
+{%block contactactive%} active {%endblock contactactive%}
+
 {% block body %}
 <div class='container mt-5'>
 <h3>Contact iCoder Team </h3>
 <form method="post", action="/contact">
 {% csrf_token %}
+
+    <div class="mb-3">
+      <label for="s_no" class="form-label">S No.</label>
+      <input type="No." class="form-control" id="s_no"  name='s_no'aria-describedby="s_no">
+    </div>
 
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>

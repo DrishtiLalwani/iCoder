@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Contact(models.Model):
-    s_no = models.AutoField(primary_key=True)
+    s_no = models.CharField(max_length=3, primary_key=True)
     name = models.CharField (max_length=50)
     email = models.EmailField()
     phone = models.CharField (max_length=13)
