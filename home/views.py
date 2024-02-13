@@ -1,12 +1,29 @@
 from django.shortcuts import render, HttpResponse
 from home.models import Contact
 from django.contrib import messages
+from blog.models import Post
 # Create your views here.
 def home(request): 
-    return render(request, 'home/home.html')
+    allPosts= Post.objects.all()
+    context={'allPosts': allPosts}
+    return render(request, 'home/home.html', context)
 
 def about(request): 
     return render(request, 'home/about.html')
+
+def search(request):
+    query=request.POST['query']
+    if len(query)>60:
+        allPosts=Post.objects.none()
+    else: 
+        allPoststitle= Post.objects.filter(title__icontains= query)
+        allPostscontent= Post.objects.filter(content__icontains= query)
+        allPostsauthor= Post.objects.filter(author__icontains= query)
+        allPosts1=allPoststitle.union(allPostscontent)
+        allPosts=allPosts1.union(allPostsauthor)
+
+    params={'allPosts': allPosts}
+    return render(request, 'home/search.html', params)
 
 def contact(request):
     
